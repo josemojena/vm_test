@@ -1,0 +1,39 @@
+parameters:
+  mailer.transport: sendmail
+
+services:
+  application:
+    class: VmApp\Infrastructure\UI\Console\Application
+    arguments: [ '@service_container' ]
+  #  event_dispatcher:
+  #    class: Symfony\Component\EventDispatcher\EventDispatcher
+  inmemorystorage:
+    class: VmApp\Infrastructure\Database\InMemoryDatabase
+  productrepository:
+    class: VmApp\Infrastructure\Repositories\ProductRepository
+    arguments: [ '@inmemorystorage' ]
+  orderrepository:
+    class: VmApp\Infrastructure\Repositories\OrderRepository
+    arguments: [ '@inmemorystorage' ]
+  moneyrepository:
+    class: VmApp\Infrastructure\Repositories\CoinStockRepository
+    arguments: [ '@inmemorystorage' ]
+  changecalculator:
+    class: VmApp\Domain\Model\Sales\MoneyChangeCalculator
+  createorderhandler:
+    class: VmApp\Application\Order\CreateOrderCommandHandler
+    arguments: [ '@changecalculator', '@productrepository', '@orderrepository', '@moneyrepository' ]
+  cancelorderhandler:
+    class: VmApp\Application\Order\CancelOrderCommandHandler
+  productqueryhandler:
+    class: VmApp\Application\Product\ProductQueryHandler
+    arguments: ['@productrepository']
+  createordercontroller:
+    class: VmApp\Infrastructure\UI\Console\CreateOrderController
+    arguments: [ '@createorderhandler' ]
+  cancelordercontroller:
+    class: VmApp\Infrastructure\UI\Console\CancelOrderController
+    arguments: [ '@cancelorderhandler' ]
+  consultingstockcontroller:
+    class: VmApp\Infrastructure\UI\Console\ConsultingStockController
+    arguments: [ '@productqueryhandler' ]
