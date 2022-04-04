@@ -1,6 +1,6 @@
 <?php
 
-namespace VmApp\Application\CoinsStock;
+namespace VmApp\Application\CoinsStock\Queries;
 
 class CoinStockQuery
 {
