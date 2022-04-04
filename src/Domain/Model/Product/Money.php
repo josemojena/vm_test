@@ -2,6 +2,8 @@
 
 namespace VmApp\Domain\Model\Product;
 
+use InvalidArgumentException;
+
 class Money
 {
     private float $value;
@@ -14,7 +16,7 @@ class Money
     public function __construct(float $value)
     {
         if ($value < 0) {
-            throw new \Exception("`$value` must be positive");
+            throw new InvalidArgumentException("`$value` must be positive");
         }
         $this->value = $value;
     }

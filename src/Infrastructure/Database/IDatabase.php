@@ -29,6 +29,6 @@ interface IDatabase
      * @param Product $product
      * @return mixed
      */
-    public function updateProduct(Product $product): mixed;
+    public function updateProduct(Product $product);
 
 }

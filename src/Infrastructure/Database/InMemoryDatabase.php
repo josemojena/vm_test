@@ -75,7 +75,7 @@ class InMemoryDatabase implements IDatabase
      */
     public function updateProduct(Product $product)
     {
-        //fool example of update... just for the test
+        //fool example of update... just for the tests
         foreach ($this->products as $index => $prod) {
             if ($prod->id() === $product->id()) {
                 $this->products[$index] = $product;
