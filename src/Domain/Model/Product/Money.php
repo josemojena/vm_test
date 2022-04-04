@@ -2,9 +2,6 @@
 
 namespace VmApp\Domain\Model\Product;
 
-use JetBrains\PhpStorm\Pure;
-
-
 class Money
 {
     private float $value;
@@ -54,12 +51,12 @@ class Money
         return $this->value;
     }
 
-    #[Pure] public function __toString(): string
+    public function __toString(): string
     {
         return "{$this->value()}";
     }
 
-    #[Pure] public function greaterOrEqualThan(Money $totalMoney): bool
+    public function greaterOrEqualThan(Money $totalMoney): bool
     {
         return $this->equals($totalMoney) || $this->greather($totalMoney);
     }
@@ -82,17 +79,17 @@ class Money
         return new self(sprintf("%.2f", $_value));
     }
 
-    #[Pure] public function equals(Money $toCompare): bool
+    public function equals(Money $toCompare): bool
     {
         return $this->value() == $toCompare->value();
     }
 
-    #[Pure] public function greather(Money $toCompare): bool
+    public function greather(Money $toCompare): bool
     {
         return $this->value() > $toCompare->value();
     }
 
-    #[Pure] public function lower(Money $toCompare): bool
+    public function lower(Money $toCompare): bool
     {
         return $this->value() < $toCompare->value();
     }

@@ -2,7 +2,6 @@
 
 namespace VmApp\Domain\Model\Product;
 
-use JetBrains\PhpStorm\Pure;
 use Ramsey\Uuid\Uuid;
 
 class ProductId
@@ -19,11 +18,11 @@ class ProductId
         return $this->id;
     }
 
-    #[Pure] public function __toString(): string
+    public function __toString(): string
     {
         return $this->id();
     }
-    #[Pure] public function equals(ProductId $pId){
+    public function equals(ProductId $pId){
         return $this->id == $pId->id();
     }
 }

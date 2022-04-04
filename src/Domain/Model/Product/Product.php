@@ -2,10 +2,6 @@
 
 namespace VmApp\Domain\Model\Product;
 
-
-use JetBrains\PhpStorm\Pure;
-use Ramsey\Uuid\Guid\Guid;
-use Ramsey\Uuid\Uuid;
 use VmApp\Domain\ProductName;
 use VmApp\Domain\strig;
 
@@ -150,7 +146,7 @@ class Product
      * Whether a product  is available
      * @return bool
      */
-    #[Pure] public function existence(): bool
+    public function existence(): bool
     {
         return $this->quantity() > 0;
     }

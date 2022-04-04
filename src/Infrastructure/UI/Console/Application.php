@@ -3,7 +3,6 @@
 namespace VmApp\Infrastructure\UI\Console;
 
 use Exception;
-use JetBrains\PhpStorm\Pure;
 use Symfony\Component\DependencyInjection\Container;
 use VmApp\Application\Product\ProductQuery;
 use VmApp\Domain\Model\Sales\CancelOrderCommand;
@@ -151,7 +150,7 @@ class Application
     /**
      * @throws Exception
      */
-    #[Pure] private function validateCoinsDenominations(array $coins): bool
+    private function validateCoinsDenominations(array $coins): bool
     {
         foreach ($coins as $coin) {
             if (!$this->container->get('coinvalidator')->validate($coin)) {

@@ -4,7 +4,6 @@ namespace VmApp\Domain\Model\CoinStock;
 
 
 use InvalidArgumentException;
-use JetBrains\PhpStorm\Pure;
 
 class Coin
 {
@@ -45,12 +44,12 @@ class Coin
      * @param Coin $coin
      * @return bool
      */
-    #[Pure] public function equals(Coin $coin): bool
+    public function equals(Coin $coin): bool
     {
         return $this->value == $coin->value();
     }
 
-    #[Pure] public function __toString(): string
+    public function __toString(): string
     {
         return "{$this->value()}";
     }
