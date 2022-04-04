@@ -27,7 +27,7 @@ services:
     class: VmApp\Application\Order\CancelOrderCommandHandler
   productqueryhandler:
     class: VmApp\Application\Product\ProductQueryHandler
-    arguments: ['@productrepository']
+    arguments: [ '@productrepository' ]
   createordercontroller:
     class: VmApp\Infrastructure\UI\Console\CreateOrderController
     arguments: [ '@createorderhandler' ]
@@ -37,3 +37,12 @@ services:
   consultingstockcontroller:
     class: VmApp\Infrastructure\UI\Console\ConsultingStockController
     arguments: [ '@productqueryhandler' ]
+  coin005:
+    class: VmApp\Domain\Model\CoinStock\CoinTypesValidators\CoinType_005
+  coin010:
+    class: VmApp\Domain\Model\CoinStock\CoinTypesValidators\CoinType_010
+  coinvalidator:
+    class: VmApp\Domain\Model\CoinStock\CoinValidator
+    arguments: [ ['@coin005', '@coin010'] ]
+#    calls:
+#      - registerValidator: [ ['@coin005', '@coin010' ]

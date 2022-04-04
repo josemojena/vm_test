@@ -3,18 +3,13 @@
 namespace VmApp\Infrastructure\UI\Console;
 
 use Exception;
+use JetBrains\PhpStorm\Pure;
 use Symfony\Component\DependencyInjection\Container;
 use VmApp\Application\Product\ProductQuery;
 use VmApp\Domain\Model\Sales\CancelOrderCommand;
 use VmApp\Domain\Model\Sales\CreateOrderCommand;
 use VmApp\Infrastructure\UI\Console\Util\ConsoleHelper;
 
-
-enum  Role
-{
-    case MANAGER;
-    case CLIENT;
-}
 
 class Application
 {
@@ -71,6 +66,9 @@ class Application
         $cliParser = new ParseInput();
         $this->promptCoinsInput();
         $coins = $cliParser->convertToCoinsFromInput($this->readCoinsInput());
+        if (!$this->validateCoinsDenominations($coins)) {
+            throw new \InvalidArgumentException("invalid coins denominations");
+        }
 
         $this->promptProductSelectorInput();
         $option = $this->getValidatedOption();
@@ -147,6 +145,19 @@ class Application
      */
     public function promptCoinsInput(): void
     {
-        echo "1- Insert coins separate comma, valid coins(0.05, 0.10, 0.25, 1)\n";
+        echo "1- Insert coins separate comma, valid coins (0.05, 0.10, 0.25, 1)\n";
+    }
+
+    /**
+     * @throws Exception
+     */
+    #[Pure] private function validateCoinsDenominations(array $coins): bool
+    {
+        foreach ($coins as $coin) {
+            if (!$this->container->get('coinvalidator')->validate($coin)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -15,6 +15,7 @@ class Coin
         if ($value == 0) {
             throw  new InvalidArgumentException("value must be greater than zero");
         }
+
         $this->setValue($value);
     }
 
