@@ -14,11 +14,6 @@ class CoinValidator
         $this->validators = $coinValueValidators;
     }
 
-//    public function registerValidator(ICoinValueValidator $coinValueValidator)
-//    {
-//        $this->validators [] = $coinValueValidator;
-//    }
-
     public function validate(Coin $coin): bool
     {
         foreach ($this->validators as $validator) {

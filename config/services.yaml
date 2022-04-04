@@ -41,8 +41,12 @@ services:
     class: VmApp\Domain\Model\CoinStock\CoinTypesValidators\CoinType_005
   coin010:
     class: VmApp\Domain\Model\CoinStock\CoinTypesValidators\CoinType_010
+  coin025:
+    class: VmApp\Domain\Model\CoinStock\CoinTypesValidators\CoinType_025
+  coin100:
+    class: VmApp\Domain\Model\CoinStock\CoinTypesValidators\CoinType_100
   coinvalidator:
     class: VmApp\Domain\Model\CoinStock\CoinValidator
-    arguments: [ ['@coin005', '@coin010'] ]
+    arguments: [ [ '@coin005', '@coin010', '@coin025', '@coin100' ] ]
 #    calls:
 #      - registerValidator: [ ['@coin005', '@coin010' ]
