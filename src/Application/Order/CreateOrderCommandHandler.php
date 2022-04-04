@@ -34,7 +34,10 @@ class CreateOrderCommandHandler
      */
     public function handle(CreateOrderCommand $request): GetItemResponse
     {
-        $product = $this->findProductOrThrow($request);
+        $product = $this->findOrThrow($request->productCode());
+        if (!$product->existence()) {
+            throw new OutOfStockException();
+        }
         $userBalance = Money::fromCoins($request->coins());
         //make an order
         $order = new Order($product->id(), $product->name(), $product->selector(), $product->price()->value(), $userBalance->value());
@@ -77,21 +80,4 @@ class CreateOrderCommandHandler
         }
         return $orderCoinStock;
     }
-
-    /**
-     * @param CreateOrderCommand $request
-     * @return Product
-     * @throws OutOfStockException
-     * @throws ProductNotFoundException
-     */
-    public function findProductOrThrow(CreateOrderCommand $request): Product
-    {
-        $product = $this->findOrThrow($request->productCode());
-        if (!$product->existence()) {
-            throw new OutOfStockException();
-        }
-        return $product;
-    }
-
-
 }
