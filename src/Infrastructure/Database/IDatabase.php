@@ -31,4 +31,10 @@ interface IDatabase
      */
     public function updateProduct(Product $product);
 
+    /**
+     * @param CoinStock $coinStock
+     * @return mixed
+     */
+    public function updateCoinStock(CoinStock $coinStock);
+
 }

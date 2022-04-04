@@ -3,6 +3,7 @@
 namespace VmApp\Application\Order;
 
 use VmApp\Domain\Model\CoinStock\ICoinStockRepository;
+use VmApp\Domain\Model\CoinStock\ICoinStockDecreaseService;
 use VmApp\Domain\Model\Product\IProductRepository;
 use VmApp\Domain\Model\Product\Money;
 use VmApp\Domain\Model\Product\Product;
@@ -10,6 +11,7 @@ use VmApp\Domain\Model\Product\ProductNotFoundException;
 use VmApp\Domain\Model\Sales\CreateOrderCommand;
 use VmApp\Domain\Model\Sales\GetItemResponse;
 use VmApp\Domain\Model\Sales\IMoneyChangeCalculator;
+use VmApp\Domain\Model\Sales\IOrderRepository;
 use VmApp\Domain\Model\Sales\NotAvailableChange;
 use VmApp\Domain\Model\Sales\NotEnoughMoneyException;
 use VmApp\Domain\Model\Sales\Order;
@@ -20,10 +22,11 @@ use VmApp\Infrastructure\Repositories\OrderRepository;
 class CreateOrderCommandHandler
 {
     public function __construct(
-        private IMoneyChangeCalculator $changeCalculator,
-        private IProductRepository     $productRepository,
-        private OrderRepository        $orderRepository,
-        private ICoinStockRepository   $coinStockRepository)
+        private IMoneyChangeCalculator    $changeCalculator,
+        private IProductRepository        $productRepository,
+        private IOrderRepository          $orderRepository,
+        private ICoinStockRepository      $coinStockRepository,
+        private ICoinStockDecreaseService $coinStockService)
     {
     }
 
@@ -53,6 +56,8 @@ class CreateOrderCommandHandler
         //DomainEvent.raise(OrderCreated)
         $product->decreaseStock();
         $this->productRepository->update($product);
+        $this->coinStockService->decrease($change);
+
         return new GetItemResponse(productName: $order->productName(), change: $change);
     }
 

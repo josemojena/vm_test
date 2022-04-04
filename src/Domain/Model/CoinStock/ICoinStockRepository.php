@@ -4,11 +4,15 @@ namespace VmApp\Domain\Model\CoinStock;
 
 interface ICoinStockRepository
 {
-  public function insertMoney(Coin $coin);
-
     /**
      * @return CoinStock[]
      */
-  public function stock();
+    public function stock();
+
+    /**
+     * @param int $amount
+     * @return mixed
+     */
+    public function update(CoinStock $coinStock);
 
 }

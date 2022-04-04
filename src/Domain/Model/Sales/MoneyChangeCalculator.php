@@ -5,6 +5,7 @@ namespace VmApp\Domain\Model\Sales;
 use Exception;
 use SplPriorityQueue;
 
+use VmApp\Domain\Model\CoinStock\Coin;
 use VmApp\Domain\Model\CoinStock\CoinStock;
 use VmApp\Domain\Model\Product\Money;
 
@@ -92,7 +93,7 @@ class MoneyChangeCalculator implements IMoneyChangeCalculator
      */
     private function collectChanges(int $end, float $coinValue): array
     {
-        return array_fill(0, $end, $coinValue);
+        return array_fill(0, $end, Coin::fromValue($coinValue));
     }
 
     /**

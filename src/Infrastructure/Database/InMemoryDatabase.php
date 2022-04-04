@@ -22,7 +22,7 @@ class InMemoryDatabase implements IDatabase
     /**
      * @var CoinStock[]
      */
-    private array $coins = [];
+    private array $coinStocks = [];
     /**
      * @var Order[]
      */
@@ -39,19 +39,23 @@ class InMemoryDatabase implements IDatabase
             new Product(id: new ProductId(), name: "Juice", price: new Money(1.0), selector: "GET-JUICE", availableStock: 10),
             new Product(id: new ProductId(), name: "Soda", price: new Money(1.50), selector: "GET-SODA", availableStock: 10)];
 
-        $this->coins = [
+        $this->coinStocks = [
             new CoinStock(id: new CoinStockId(), coin: new Coin(0.05), amount: 10),
             new CoinStock(id: new CoinStockId(), coin: new Coin(0.10), amount: 10),
             new CoinStock(id: new CoinStockId(), coin: new Coin(0.25), amount: 10),
             new CoinStock(id: new CoinStockId(), coin: new Coin(1.0), amount: 15)
         ];
     }
+
     /**
      * @return CoinStock[]
      */
     public function getCoinsStock(): array
     {
-        return $this->coins;
+        $makeCopyCoinStock = function (CoinStock $coinStock): CoinStock {
+            return clone $coinStock;
+        };
+        return array_map($makeCopyCoinStock, $this->coinStocks);
     }
 
     /**
@@ -69,7 +73,17 @@ class InMemoryDatabase implements IDatabase
     }
 
     /**
-     * Update a model(Product|Coin) into memory array of data
+     * Add a new order to the database
+     * @param Order $order
+     * @return mixed|void
+     */
+    public function addOrder(Order $order)
+    {
+        $this->orders [] = $order;
+    }
+
+    /**
+     * Update a Product into memory array of data
      * @param Product $product
      * @return void
      */
@@ -84,8 +98,18 @@ class InMemoryDatabase implements IDatabase
         }
     }
 
-    public function addOrder(Order $order)
+    /**
+     * Update a Coin into memory array of data
+     * @param CoinStock $coinStock
+     * @return mixed|void
+     */
+    public function updateCoinStock(CoinStock $coinStock)
     {
-        $this->orders [] = $order;
+        foreach ($this->coinStocks as $index => $coin) {
+            if ($coin->id() === $coinStock->id()) {
+                $this->coinStocks[$index] = $coinStock;
+                break;
+            }
+        }
     }
 }

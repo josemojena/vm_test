@@ -5,8 +5,6 @@ services:
   application:
     class: VmApp\Infrastructure\UI\Console\Application
     arguments: [ '@service_container' ]
-  #  event_dispatcher:
-  #    class: Symfony\Component\EventDispatcher\EventDispatcher
   inmemorystorage:
     class: VmApp\Infrastructure\Database\InMemoryDatabase
   productrepository:
@@ -20,16 +18,19 @@ services:
     arguments: [ '@inmemorystorage' ]
   changecalculator:
     class: VmApp\Domain\Model\Sales\MoneyChangeCalculator
+  coinStockService:
+    class: VmApp\Application\CoinsStock\Services\CoinDecreaseStock
+    arguments: [ '@moneyrepository' ]
   createorderhandler:
     class: VmApp\Application\Order\CreateOrderCommandHandler
-    arguments: [ '@changecalculator', '@productrepository', '@orderrepository', '@moneyrepository' ]
+    arguments: [ '@changecalculator', '@productrepository', '@orderrepository', '@moneyrepository', '@coinStockService' ]
   cancelorderhandler:
     class: VmApp\Application\Order\CancelOrderCommandHandler
   productqueryhandler:
     class: VmApp\Application\Product\ProductQueryHandler
     arguments: [ '@productrepository' ]
   coinstockqueryhandler:
-    class: VmApp\Application\CoinsStock\CoinStockQueryHandler
+    class: VmApp\Application\CoinsStock\Queries\CoinStockQueryHandler
     arguments: [ '@moneyrepository' ]
   createordercontroller:
     class: VmApp\Infrastructure\UI\Console\CreateOrderController

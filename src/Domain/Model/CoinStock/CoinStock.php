@@ -36,7 +36,7 @@ class CoinStock
         return $this->amount;
     }
 
-    public function decreaseStock(int $value)
+    public function decrease(int $value = 1)
     {
         if ($this->amount() - $value < 0) {
             $this->amount = 0;
