@@ -11,14 +11,15 @@ interface IProductRepository
     public function findAll(): mixed;
 
     /**
-     * ?Product
      * @param $productCode
      * @return mixed
      */
     public function findByCode($productCode): mixed;
 
-    public function remove(Product $product): void;
-
+    /**
+     * @param Product $product
+     * @return void
+     */
     public function update(Product $product): void;
 
 }

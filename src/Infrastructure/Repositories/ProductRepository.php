@@ -42,26 +42,8 @@ class ProductRepository implements IProductRepository
         }
         return null;
     }
-
-    public function decreaseProduct(Product $product): void
-    {
-        $products = $this->storage->getProducts();
-        foreach ($products as $index => $productStorage) {
-            if ($productStorage->id() == $product->id()) {
-                unset($products[$index]);
-                break;
-            }
-        }
-
-    }
-
     public function update(Product $product): void
     {
         $this->storage->updateProduct($product);
-    }
-
-    public function remove(Product $product): void
-    {
-        // TODO: Implement remove() method.
     }
 }

@@ -33,10 +33,11 @@ class InMemoryDatabase implements IDatabase
      */
     public function __construct()
     {
+        //this data could be loaded from database, file,etc
         $this->products = [
-            new Product(id: new ProductId(), name: "Water", price: new Money(0.65), selector: "GET-WATER", availableStock: 1),
-            new Product(id: new ProductId(), name: "Juice", price: new Money(1.0), selector: "GET-JUICE", availableStock: 1),
-            new Product(id: new ProductId(), name: "Soda", price: new Money(1.50), selector: "GET-SODA", availableStock: 1)];
+            new Product(id: new ProductId(), name: "Water", price: new Money(0.65), selector: "GET-WATER", availableStock: 5),
+            new Product(id: new ProductId(), name: "Juice", price: new Money(1.0), selector: "GET-JUICE", availableStock: 10),
+            new Product(id: new ProductId(), name: "Soda", price: new Money(1.50), selector: "GET-SODA", availableStock: 10)];
 
         $this->coins = [
             new CoinStock(id: new CoinStockId(), coin: new Coin(0.05), amount: 10),
@@ -45,28 +46,12 @@ class InMemoryDatabase implements IDatabase
             new CoinStock(id: new CoinStockId(), coin: new Coin(1.0), amount: 15)
         ];
     }
-
-
     /**
      * @return CoinStock[]
      */
     public function getCoinsStock(): array
     {
         return $this->coins;
-    }
-
-    public function setCoinStock(CoinStock $coin): void
-    {
-        // TODO: Implement setCoinStock() method.
-    }
-
-    /**
-     * @param CoinStock $coin
-     * @return void
-     */
-    public function addCoin(CoinStock $coin): void
-    {
-        $this->coins[] = $coin;
     }
 
     /**
@@ -103,6 +88,4 @@ class InMemoryDatabase implements IDatabase
     {
         $this->orders [] = $order;
     }
-
-
 }

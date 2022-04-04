@@ -18,7 +18,6 @@ class Application
 
     public function bootstrap()
     {
-
         while (true) {
             ConsoleHelper::printTitle("Vending Machine");
             print("1- Get Item\n");
@@ -30,7 +29,7 @@ class Application
                 switch ($option) {
                     case 1:
                     {
-                        $this->areaClient();
+                        $this->getProduct();
                         break;
                     }
                     case 2:
@@ -60,7 +59,7 @@ class Application
      * @return void
      * @throws Exception
      */
-    public function areaClient()
+    public function getProduct()
     {
         $cliParser = new ParseInput();
         $this->promptCoinsInput();
@@ -76,18 +75,11 @@ class Application
             throw new Exception("invalid option");
         }
         $selector = $selectors[$option];
-//        $input = "1, 0.25, 0.25, GET-WATER";
-//        $input = "0.10, 0.10, RETURN-COIN";
-//        $input = "1.0, 1.0, 1.0, 1.0, 1.0, GET-WATER";
-        //$input = "1.0, 0.05, 0.10, GET-WATER";
-
         $command = $cliParser->commandFromInput($coins, $selector);
         if ($command instanceof CreateOrderCommand) {
-
             $response = $this->container->get('createordercontroller')->execute($command);
             echo "-> $response";
             echo "\n";
-
         }
         if ($command instanceof CancelOrderCommand) {
             $response = $this->container->get('cancelorderhandler')->handle($command);

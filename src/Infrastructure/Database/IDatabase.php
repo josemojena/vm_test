@@ -9,7 +9,6 @@ use VmApp\Domain\Model\Sales\Order;
 
 interface IDatabase
 {
-
     /**
      * @return Product[]
      */
@@ -21,13 +20,15 @@ interface IDatabase
     public function getCoinsStock(): array;
 
     /**
-     * @param CoinStock $coin
-     * @return void
+     * @param Order $order
+     * @return mixed
      */
-    public function setCoinStock(CoinStock $coin): void;
-
     public function addOrder(Order $order);
 
-    public function updateProduct(Product $product);
+    /**
+     * @param Product $product
+     * @return mixed
+     */
+    public function updateProduct(Product $product): mixed;
 
 }

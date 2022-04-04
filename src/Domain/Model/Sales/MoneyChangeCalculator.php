@@ -44,6 +44,7 @@ class MoneyChangeCalculator implements IMoneyChangeCalculator
      * @param SplPriorityQueue $change
      * @param $results
      * @return array
+     * @throws Exception
      */
     private function availableChange(Money $m, SplPriorityQueue $change, $results): array
     {
@@ -85,6 +86,7 @@ class MoneyChangeCalculator implements IMoneyChangeCalculator
     }
 
     /**
+     * @param int $end
      * @param float $coinValue
      * @return array
      */
@@ -102,21 +104,4 @@ class MoneyChangeCalculator implements IMoneyChangeCalculator
     {
         return array_merge($sol, $aNewChanges);
     }
-
-//    /**
-//     * @param array $coins
-//     * @return \WeakMap
-//     */
-//    private function convertArrayCoinToMap(array $coins): \WeakMap
-//    {
-//        $coinsGroupByValue = new \WeakMap();
-//        //make a map
-//        foreach ($coins as $coin) {
-//            $value = $coin->value();
-//            $alreadyExist = $coinsGroupByValue->offsetExists($value);
-//            $coinsGroupByValue->offsetSet($value, $alreadyExist ? $coinsGroupByValue->offsetGet($value) + 1 : 1);
-//        }
-//        return $coinsGroupByValue;
-//    }
-
 }

@@ -19,7 +19,7 @@ class CoinStockRepository implements ICoinStockRepository
         $this->storage->save($coin);
     }
 
-    public function stock()
+    public function stock(): array
     {
         return $this->storage->getCoinsStock();
     }
