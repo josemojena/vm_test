@@ -4,6 +4,7 @@ namespace VmApp\Infrastructure\UI\Console;
 
 use Exception;
 use Symfony\Component\DependencyInjection\Container;
+use VmApp\Application\CoinsStock\CoinStockQuery;
 use VmApp\Application\Product\ProductQuery;
 use VmApp\Domain\Model\Sales\CancelOrderCommand;
 use VmApp\Domain\Model\Sales\CreateOrderCommand;
@@ -21,8 +22,9 @@ class Application
         while (true) {
             ConsoleHelper::printTitle("Vending Machine");
             print("1- Get Item\n");
-            print("2- Consulting stock\n");
-            print("3- Exit\n");
+            print("2- Consulting product stock\n");
+            print("3- Consulting change stock\n");
+            print("4- Exit\n");
 
             try {
                 $option = intval(readline("Option: "));
@@ -34,10 +36,15 @@ class Application
                     }
                     case 2:
                     {
-                        $this->consultingStock();
+                        $this->consultingProductStock();
                         break;
                     }
+
                     case 3:
+                    {
+                        $this->consultingCoinStock();
+                    }
+                    case 4:
                     {
                         exit(0);
                     }
@@ -55,8 +62,6 @@ class Application
     }
 
     /**
-     * Handle client options
-     * @return void
      * @throws Exception
      */
     public function getProduct()
@@ -88,12 +93,20 @@ class Application
         }
     }
 
-    private function consultingStock()
+    private function consultingProductStock()
     {
         $response = $this->container->get('productqueryhandler')->handle(new ProductQuery());
         echo $response;
         echo "\n";
     }
+
+    private function consultingCoinStock()
+    {
+        $response = $this->container->get('coinstockqueryhandler')->handle(new CoinStockQuery());
+        echo $response;
+        echo "\n";
+    }
+
 
     private function selectorOptions(): array
     {

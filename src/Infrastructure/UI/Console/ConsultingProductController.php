@@ -5,7 +5,7 @@ namespace VmApp\Infrastructure\UI\Console;
 use VmApp\Application\Product\ProductQuery;
 use VmApp\Application\Product\ProductQueryHandler;
 
-class ConsultingStockController
+class ConsultingProductController
 {
     public function __construct(private ProductQueryHandler $productQueryHandler)
     {

@@ -28,15 +28,21 @@ services:
   productqueryhandler:
     class: VmApp\Application\Product\ProductQueryHandler
     arguments: [ '@productrepository' ]
+  coinstockqueryhandler:
+    class: VmApp\Application\CoinsStock\CoinStockQueryHandler
+    arguments: [ '@moneyrepository' ]
   createordercontroller:
     class: VmApp\Infrastructure\UI\Console\CreateOrderController
     arguments: [ '@createorderhandler' ]
   cancelordercontroller:
     class: VmApp\Infrastructure\UI\Console\CancelOrderController
     arguments: [ '@cancelorderhandler' ]
-  consultingstockcontroller:
+  consultingproductstockcontroller:
     class: VmApp\Infrastructure\UI\Console\ConsultingStockController
     arguments: [ '@productqueryhandler' ]
+  consultingcoinstockcontroller:
+    class: VmApp\Infrastructure\UI\Console\ConsultingStockController
+    arguments: [ '@coinstockqueryhandler' ]
   coin005:
     class: VmApp\Domain\Model\CoinStock\CoinTypesValidators\CoinType_005
   coin010:
