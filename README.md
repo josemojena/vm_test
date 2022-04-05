@@ -1,11 +1,15 @@
 # Vending Machine
 Home test assigment
 
-####This is a simple console application just for the task, the project barely cover deep topics like persistence, security and other important topics.
+#### This is a simple console application just for the task, the project barely cover deep topics like persistence, security and other important topics.
 
 The initial idea was built something more clear possible by using DDD approach and clean architecture.
 
-####How to run the project
+Php: version: 8.1
+Database: InMemory
+
+
+#### How to run the project
 
 1- Clone the project `git clone https://github.com/josemojena/vm_test.git`.
 
