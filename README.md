@@ -16,3 +16,7 @@ Database: InMemory
 2- Build the docker image by running `docker build -t vm .` inside of the project directory.
 
 3- Run the container by running `docker run -it vm` or the name you used before.
+
+Image below show the main screen:
+
+<img width="1066" alt="Screenshot 2022-04-05 at 08 03 59" src="https://user-images.githubusercontent.com/37043941/161689147-1597d424-78e2-4f2f-af9a-a9b6aa1fffe7.png">
